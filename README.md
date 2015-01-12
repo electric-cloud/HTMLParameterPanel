@@ -6,7 +6,7 @@ This plugin has been compiled with SDK 5.0 and requires ElectricCommander 5.x.
 
 To use it, simply:
 
-1. set the custom procedure property **customerType** to HTMLParameterPanel-1.0.0/HTML (or whatever version of the plugin you want to use)
+1. set the custom procedure property **customType** to HTMLParameterPanel-1.0.0/HTML (or whatever version of the plugin you want to use)
 2. create a custom procedure property named **ec_parameterHTML** that will contain some HTML and "id" pointers to your parameters like:
 ```
 	<span id="Param1"></span>
