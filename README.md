@@ -16,7 +16,7 @@ or
 	<div id="Param2"></div>
 ```
 
-See the [ec_parameterHTML.html](../blob/master/ec_parameterHTML.html) file provided as an example
+See the [ec_parameterHTML.html](blob/master/ec_parameterHTML.html) file provided as an example
 
 Known issues:
  * Credential parameters are not yet supported
