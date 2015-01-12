@@ -25,10 +25,10 @@ See the [ec_parameterHTML.html](ec_parameterHTML.html) file provided as an examp
  * Tooltips (description) are not yet implemented
  * Javascript does not seem to work
 
-**Contact author:** 
+**Contact authors:** 
  * Laurent Rochette (lrochette@electric-cloud.com)
  * Nikhil Vaze (nvaze@electric-cloud.com)
- 
+
 ### Legal Jumbo
 
 This module is free for use. Modify it however you see fit to better your experience using ElectricCommander. Share your enhancements and fixes.
