@@ -5,11 +5,17 @@ To do this, simply install out/HTMLParameterPanel.jar or recompile the plugin in
 This plugin has been compiled with SDK 5.0 and requires ElectricCommander 5.x.
 
 To use it, simply:
+
 1. set the custom procedure property customerType to HTMLParameterPanel-1.0.0/HTML
 2. create a custom procedure property named ec_parameterHTML that will contain some HTML and "id" pointers to your parameters like
+```
 	<span id="Param1"></span>
+```
 or
+```
 	<div id="Param2"></div>
+```
+
 See the ec_parameterHTML.html file provided as an example
 
 Known issues:
