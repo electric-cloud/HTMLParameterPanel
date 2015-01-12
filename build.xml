@@ -1,0 +1,16 @@
+<project name="HTMLParameterPanel" default="package" basedir=".">
+  <description>
+    Build the HTMLParamPanel plugin
+  </description>
+
+  <!-- Plugin-specific properties -->
+  <property name="pluginKey" value="HTMLParameterPanel" />
+  <property name="pluginVersion" value="1.0.0" />
+  <property name="gwtModules" value="ecplugins.HTMLParameterPanel.HTMLParameterPanel" />
+
+  <path id="extras">
+  </path>
+  <property name="gwt.path.extras" value="extras" />
+
+  <import file="/opt/electriccloud/CommanderSDK5/build/buildTargets.xml" />
+</project>

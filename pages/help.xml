@@ -1,0 +1,11 @@
+<componentContainer>
+	<title>HTMLParameterPanel Help</title>
+	<h2>HTMLParameterPanel Help</h2>
+	<h3>Overview</h3>
+	<p>This plugin allows you to use HTML in your parameter panels to input
+		data to your procedures or states.</p>
+	<p>
+		<a href="HTMLParameterPanel_run">HTMLParameterPanel</a>
+	</p>
+</componentContainer>
+  
