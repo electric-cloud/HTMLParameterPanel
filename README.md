@@ -25,9 +25,6 @@ See the [ec_parameterHTML.html](ec_parameterHTML.html) file provided as an examp
  * Tooltips (description) are not yet implemented
  * Javascript does not seem to work
 
-## Notes
-
-This plugin builds with gwt-bootstrap 2.3.2.0
 
 **Contact authors:** 
  * Laurent Rochette (lrochette@electric-cloud.com)
