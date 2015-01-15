@@ -1,11 +1,72 @@
 <componentContainer>
 	<title>HTMLParameterPanel Help</title>
-	<h2>HTMLParameterPanel Help</h2>
-	<h3>Overview</h3>
+	<h1>HTMLParameterPanel Help</h1>
+	<p>Plugin Version @PLUGIN_VERSION@</p>
+    	<hr style="margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; color: #5981BD;" noshade="noshade" />
+
 	<p>This plugin allows you to use HTML in your parameter panels to input
 		data to your procedures or states.</p>
-	<p>
-		<a href="HTMLParameterPanel_run">HTMLParameterPanel</a>
-	</p>
+		
+    <h2>Usage</h2>
+    <p>To call this plugin in your procedure create the custom property 
+    	<b>customType</b> with the value @PLUGIN_NAME@/HTML</p>
+    <p>Define your page in the property <b>ec_parameterHTML</b>. To 
+    	incorporate your parameters in the HTML, simply use a id matching 
+    	your parameter name.<br/>
+    	The tooltip, displayed if you over for a few seconds over the 
+    	parameter widget, is your parameter description.<br/>
+    	The default value displayed is the parameter default value.</p>
+    <table border="1">
+    	<tr>
+    		<th>Parameter type</th>
+    		<th>Values</th>
+    		<th>Note</th>
+    	</tr>
+    	<tr>
+    		<td>Entry</td>
+    		<td>-</td>
+    		<td>A simple textbox to enter a field</td>
+    	</tr>
+    	<tr>
+    		<td>Checkbox</td>
+    		<td>-</td>
+    		<td>Only true/false supported for now</td>
+    	</tr>
+    	<tr>
+    		<td>select</td>
+    		<td>Options selected from list separated by a '|' aka choice1|choice2|...</td>
+    		<td>Other types of select: entered text/value pairs and property path will be delivered later</td>
+    	</tr>
+    	<tr>
+    		<td>project selector</td>
+    		<td></td>
+    		<td>Plugins not included</td>
+    	</tr>
+    	<tr>
+    		<td>radio</td>
+    		<td>Options selected from list separated by a '|' aka choice1|choice2|..</td>
+    		<td>Other types of select: entered text/value pairs and property path will be delivered later</td>
+    	</tr>
+    	<tr>
+    		<td>credential</td>
+    		<td></td>
+    		<td><b>Not yet supported</b></td>
+    	</tr>
+    </table>
+ 	<p>For example</p>
+
+<h1>Release Notes</h1>
+    <h2>version 1.0.1</h2>
+
+    <ul>
+        <li>Added tooltip and Help page.</li>
+    </ul>
+
+    <h2>version 1.0.0</h2>
+
+    <ul>
+        <li>Original version created for the Days of Thunder 2015 (internal
+        	hackathon) where it took second place.</li>
+    </ul>
 </componentContainer>
   

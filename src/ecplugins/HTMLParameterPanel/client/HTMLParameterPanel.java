@@ -21,6 +21,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -381,17 +382,17 @@ public class HTMLParameterPanel
 	/*
 	 * Creation of a widget based on the type of parameter
 	 */
+	@SuppressWarnings("deprecation")
 	Widget createParamWidget(String pName) {	
 		Widget widget;				// Widget to create
 		String pType=m_paramTypes.get(pName);
-
- 	   	// getLog().debug("  Creating widget for " + pName + ": " + pType + "\n");
-		/*
-		 * simply entry
+		String pDesc=m_paramDescriptions.get(pName);
+		
+ 		/*
+		 * simple entry
 		 */
-
 		if (pType.equals("entry")) {
- 		   TextBox TB= new TextBox();
+ 		   TextBox TB = new TextBox();
  		   TB.setValue(m_paramDefaultValues.get(pName));
  		   widget=TB.asWidget();
 		} else if (pType.equals("checkbox")) {
@@ -419,7 +420,7 @@ public class HTMLParameterPanel
  		   // getLog().debug("Unknown type for " + pName + ": " + pType + "\n");
  		   widget=null;
      	}
-     	// getLog().debug("  Widget created " + widget.toString() + "\n");
+     	// Add Tooltip
      	widget.setTitle(m_paramDescriptions.get(pName));
      	return widget;
 	}
