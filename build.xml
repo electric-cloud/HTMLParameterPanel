@@ -5,7 +5,7 @@
 
   <!-- Plugin-specific properties -->
   <property name="pluginKey" value="HTMLParameterPanel" />
-  <property name="pluginVersion" value="1.0.1" />
+  <property name="pluginVersion" value="1.0.2" />
   <property name="gwtModules" value="ecplugins.HTMLParameterPanel.HTMLParameterPanel" />
 
   <path id="extras">
