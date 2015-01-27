@@ -9,13 +9,14 @@
 
 package ecplugins.HTMLParameterPanel.client;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -86,17 +87,8 @@ public class HTMLParameterPanel
    	 			return false;
    	 		}
    	 	}
-        // Execute the timer to expire 20 seconds in the future
-        timer.schedule(20000);
-   	 	
          return true;
 	}
-
-    Timer timer = new Timer() {
-        public void run() {
-          return;
-        }
-      };
 	
 	@Override public ParameterPanel getParameterPanel() {
 		// TODO Auto-generated method stub
@@ -149,12 +141,19 @@ public class HTMLParameterPanel
         m_widgets		= new HashMap<String, HTMLParameterWidget>();
         /*
          * Extract project and procedure from the URL
+         * URL need to be decoded (Issue #5)
          */
-        String URL=Window.Location.getPath();
-        String pattern = "/commander/link/runProcedure/projects/(\\w+)/procedures/(\\w+)";
-        projectName=URL.replaceAll(pattern, "$1"); 
-        procedureName=URL.replaceAll(pattern, "$2");
- 
+        String URLstring=Window.Location.getPath();
+        String pattern = "/commander/link/runProcedure/projects/([%.\\w]+)/procedures/([%.\\w]+)";
+		projectName   = URL.decode(URLstring.replaceAll(pattern, "$1"));
+        procedureName = URL.decode(URLstring.replaceAll(pattern, "$2"));
+
+        /* 
+         * Issues with %3D (=) which don't seem to be decoded
+         */
+        projectName = projectName.replaceAll("%3D", "=");
+        procedureName = procedureName.replaceAll("%3D", "=");
+
         for (FormalParameter formalParameter : formalParameters) {
         	String pName=formalParameter.getName();
         	getLog().debug("Param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");

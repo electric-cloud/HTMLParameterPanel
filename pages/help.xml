@@ -56,10 +56,26 @@
  	<p>For example</p>
 
 <h1>Release Notes</h1>
-    <h2>version 1.0.1</h2>
+   <h2>version 1.0.3</h2>
+    <ul>
+        <li>Fixed <a href="https://github.com/electriccommunity/HTMLParameterPanel/issues/5">
+            Issue #5</a>: problem with spaces in project and procedure names.</li>
+    </ul>
 
+   <h2>version 1.0.2</h2>
+    <ul>
+        <li>Re-architecture of the code. No new feature.</li>
+    </ul>
+
+  <h2>version 1.0.1</h2>
     <ul>
         <li>Added tooltip and Help page.</li>
+    </ul>
+    
+   <h2>version 1.0.0</h2>
+    <ul>
+        <li>Original version created for the Days of Thunder 2015 (internal
+        	hackathon) where it took second place.</li>
     </ul>
 
     <h2>version 1.0.0</h2>
