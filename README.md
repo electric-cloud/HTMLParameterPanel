@@ -21,8 +21,7 @@ See the [ec_parameterHTML.html](ec_parameterHTML.html) file provided as an examp
 ### Known issues:
 
  * Credential parameters are not yet supported
- * Select parmeters only support "short" list aka choice1|choice2|choice3
- * Tooltips (description) are not yet implemented
+ * Select parameters only support "short" list aka choice1|choice2|choice3
  * Javascript does not seem to work
 
 
