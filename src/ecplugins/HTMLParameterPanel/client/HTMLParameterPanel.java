@@ -40,7 +40,7 @@ public class HTMLParameterPanel
     extends ComponentBase
     implements ParameterPanel, ParameterPanelProvider {
 
-	private Map<String, FormalParameter> m_formalParams; 	// Formal parameters
+	// private Map<String, FormalParameter> m_formalParams; 	// Formal parameters
 	private Map <String, HTMLParameterWidget> m_widgets;	// parameter widget objects
 	private String projectName;
 	private String procedureName;
@@ -137,7 +137,7 @@ public class HTMLParameterPanel
      * @param  formalParameters  Formal parameters on the target object.
      */
     @Override public void setFormalParameters(Collection<FormalParameter> formalParameters) {
-        m_formalParams  = new HashMap<String, FormalParameter>();
+        // m_formalParams  = new HashMap<String, FormalParameter>();
         m_widgets		= new HashMap<String, HTMLParameterWidget>();
         /*
          * Extract project and procedure from the URL
@@ -156,9 +156,20 @@ public class HTMLParameterPanel
 
         for (FormalParameter formalParameter : formalParameters) {
         	String pName=formalParameter.getName();
-        	getLog().debug("Param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
-            m_widgets.put(pName, new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
-            		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName));
+           	String pType=formalParameter.getType();
+        	String pValue=formalParameter.getDefaultValue();
+        	String pDesc=formalParameter.getDescription();
+        	Boolean pReq=formalParameter.isRequired();
+        	HTMLParameterWidget paramWidget;
+        	
+        	getLog().debug("Processing param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
+        	if (pType.equals("entry")) {
+        		paramWidget=new HTMLParameterEntry(pName, pValue, pDesc, pReq);
+        	} else {
+        		paramWidget=new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
+            		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName);
+        	}
+        	m_widgets.put(pName, paramWidget);
         }
         
        	/*

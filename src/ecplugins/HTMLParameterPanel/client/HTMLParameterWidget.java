@@ -30,22 +30,30 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
  
 public class HTMLParameterWidget implements CommanderErrorHandler
 {
-	private Component 	m_component; 	//The plugin component requesting this  widget
-	private String 		m_name;
-	private String 		m_type;
-	private String 		m_description;
-	private String 		m_defaultValue;
-	private Widget 		m_widget;
+	protected Component 	m_component; 	//The plugin component requesting this  widget
+	protected String 		m_name;
+	protected String 		m_type;
+	protected String 		m_description;
+	protected String 		m_defaultValue;
+	protected Widget 		m_widget;
 	static String 		s_projectName;
 	static String 		s_procedureName;
-	private Boolean     m_isRequired;
+	protected Boolean     m_isRequired;
 	
+    //~ Methods ----------------------------------------------------------------
+	public HTMLParameterWidget(String parameterName, String parameterType, 
+			String parameterDefaultValue, String parameterDescription, Boolean isRequired) {
+		m_name=parameterName;
+		m_type=parameterType;
+		m_defaultValue=parameterDefaultValue;
+		m_description=parameterDescription;
+		m_isRequired=isRequired;
+	}
 	/*
 	 * Return a String representation of a parameter widget
 	 * @see java.lang.Object#toString()
@@ -102,11 +110,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 		// component.getLog().debug("Creating Widget for " + m_name + "\n");
 		
  		// simple text entry
-		if (m_type.equals("entry")) {
- 		   TextBox TB = new TextBox();
- 		   TB.setValue(m_defaultValue);
- 		   m_widget=TB.asWidget();
-		} else if (m_type.equals("checkbox")) {
+		if (m_type.equals("checkbox")) {
      		CheckBox CB=new CheckBox();
      		if (m_defaultValue.equals("true")) {
      			CB.setValue(true);
@@ -288,10 +292,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	public String getValue() {
 		Widget widget=this.getWidget();		// Widget to read
 		
-		if (m_type.equals("entry")) {
-     		TextBox TB=(TextBox) widget;
- 		   return TB.getValue();
-		}
 		if (m_type.equals("checkbox")) {
      		CheckBox CB=(CheckBox) widget;
      		if (CB.getValue()) {
