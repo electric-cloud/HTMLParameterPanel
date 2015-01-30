@@ -170,9 +170,12 @@ public class HTMLParameterPanel
         		paramWidget=new HTMLParameterProject(pName, pValue, pDesc, pReq);
         	} else if  (pType.equals("radio")) {
         		paramWidget=new HTMLParameterRadio(pName, pType, pValue, pDesc, pReq, projectName, procedureName);
+        	} else if  (pType.equals("select")) {
+        		paramWidget=new HTMLParameterSelect(pName, pType, pValue, pDesc, pReq, projectName, procedureName);
         	} else {
-        		paramWidget=new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
-            		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName);
+        		paramWidget=null;
+        		alert("Formal parameter of type " + pType + " is not yet supported!\n" +
+        			  "Open an issue on GitHub to have it fixed.\n");
         	}
         	m_widgets.put(pName, paramWidget);
         }
@@ -229,8 +232,7 @@ public class HTMLParameterPanel
 			}
 	    }, getProperty);    
 	}
-
-	 	
+	
 	public static native void alert(String msg) /*-{
 	  $wnd.alert(msg);
 	}-*/;

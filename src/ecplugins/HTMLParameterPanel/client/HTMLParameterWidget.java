@@ -1,12 +1,8 @@
 package ecplugins.HTMLParameterPanel.client;
 
-import com.electriccloud.commander.client.ChainedCallback;
-import com.electriccloud.commander.client.domain.Property;
-import com.electriccloud.commander.client.requests.GetPropertyRequest;
+
 import com.electriccloud.commander.client.responses.CommanderError;
 import com.electriccloud.commander.client.responses.CommanderErrorHandler;
-import com.electriccloud.commander.client.responses.DefaultPropertyCallback;
-import com.electriccloud.commander.client.responses.PropertyCallback;
 import com.electriccloud.commander.gwt.client.Component;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,12 +22,23 @@ public class HTMLParameterWidget implements CommanderErrorHandler
     //~ Methods ----------------------------------------------------------------
 	public HTMLParameterWidget(String parameterName, String parameterType, 
 			String parameterDefaultValue, String parameterDescription, Boolean isRequired) {
+		
 		m_name=parameterName;
 		m_type=parameterType;
 		m_defaultValue=parameterDefaultValue;
 		m_description=parameterDescription;
 		m_isRequired=isRequired;
 	}
+
+	public  HTMLParameterWidget(String parameterName, String parameterType, 
+			String parameterDefaultValue, String parameterDescription, Boolean isRequired,
+			String projName, String procName) {
+		
+		this(parameterName,parameterType,parameterDefaultValue,parameterDescription,isRequired);
+		s_projectName=projName;
+		s_procedureName=procName;
+	}
+
 	/*
 	 * Return a String representation of a parameter widget
 	 * @see java.lang.Object#toString()
@@ -68,34 +75,16 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 		s_projectName = procName;
 	}
 
-	public  HTMLParameterWidget(String parameterName, String parameterType, 
-			String parameterDefaultValue, String parameterDescription, Boolean isRequired,
-			String projName, String procName) {
-		m_name=parameterName;
-		m_type=parameterType;
-		m_defaultValue=parameterDefaultValue;
-		m_description=parameterDescription;
-		m_isRequired=isRequired;
-		s_projectName=projName;
-		s_procedureName=procName;
-	}
 	
 	/*
 	 *  Create the GWT widget part of a parameter
 	 */
 	public void createWidget(Component component)  {		
 		m_component=component;
-		// component.getLog().debug("Creating Widget for " + m_name + "\n");
-		
-		if (m_type.equals("select")) {
-     		ListBox LB=new ListBox();
-     		m_widget=LB.asWidget();
-     		getMenuChoices(m_name, LB);
-		}  else {
- 		   alert("Parameters of type " + m_type + " are not yet supported.\n" + 
- 		   		 "Please open an issue on GitHub to have this fixed.\n");
- 		   m_widget=null;
-     	}
+		// component.getLog().debug("Creating Widget for " + m_name + "\n");		
+	   alert("Parameters of type " + m_type + " are not yet supported.\n" + 
+	   		 "Please open an issue on GitHub to have this fixed.\n");
+	   m_widget=null;
 	}
 
 	public static native void alert(String msg) /*-{
@@ -103,51 +92,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	}-*/;
 	
  	
-	/**
-     * Function to get the choices of a menu
-     */
-	private void getMenuChoices(final String paramName, final ListBox LB) {
-		/**
-		 * Callback function to handle the property value
-		 */
-        PropertyCallback propertyRequestCallback = new DefaultPropertyCallback(this) {
-			@Override public void handleResponse(Property property) {
-	        	String choiceList=property.getValue();
-	        	String[] choices = choiceList.split("\\|");
-	        	Integer index=0;
-	        	Integer match=-1;
-	        	
-	        	// getLog().debug("Default Value " + defaultValue + "\n");
-	        	for (String choice: choices) {
-	        		if (m_defaultValue.equals(choice)) {
-	        			match=index;
-	        			// getLog().debug("Default Selected " + index + "\n");
-	        		}
-	        		// getLog().debug("Adding menu choice " + choice + "\n");
-	        		LB.addItem(choice);
-	        		index ++;
-	        	}
-	        	if (match >=0) {
-	        		LB.setSelectedIndex(match);
-	        	}
-	        }
-		};
-
-		GetPropertyRequest getProperty = m_component.getRequestManager().getRequestFactory().createGetPropertyRequest();
-		getProperty.setCallback(propertyRequestCallback);
-		getProperty.setPropertyName("/projects/" + s_projectName +
-									"/procedures/" + s_procedureName +
-									"/ec_customEditorData/parameters/" + paramName +
-									"/options/list");
-
-		m_component.getRequestManager().doRequest(new ChainedCallback() {
-			@Override public void onComplete() {
-	           	  	// All done!             
-			}
-	    }, getProperty);    
-	}
-
-	
 	@Override
 	public void handleError(CommanderError error) {
 		// TODO Auto-generated method stub
@@ -157,14 +101,9 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	
 	public String getValue() {
 		Widget widget=this.getWidget();		// Widget to read
-		
-		if (m_type.equals("select")) {
-     		ListBox LB=(ListBox) widget;
-     		return LB.getValue(LB.getSelectedIndex());
-     	}
- 		   
+		 		   
 		alert("getValue: Unknown type for " + widget.toString() + ": " + m_type + "\n");
- 	   return null;
+ 	   	return null;
 	}
 
 }
