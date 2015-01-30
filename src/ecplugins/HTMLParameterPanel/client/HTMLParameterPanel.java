@@ -39,7 +39,6 @@ public class HTMLParameterPanel
     extends ComponentBase
     implements ParameterPanel, ParameterPanelProvider {
 
-	// private Map<String, FormalParameter> m_formalParams; 	// Formal parameters
 	private Map <String, HTMLParameterWidget> m_widgets;	// parameter widget objects
 	private String projectName;
 	private String procedureName;

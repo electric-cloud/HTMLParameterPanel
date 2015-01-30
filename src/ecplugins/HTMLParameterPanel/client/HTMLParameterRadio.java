@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
-public class HTMLParameterRadio extends HTMLParameterWidget implements CommanderErrorHandler {
+public class HTMLParameterRadio extends HTMLParameterList implements CommanderErrorHandler {
 
     //~ Methods ----------------------------------------------------------------
 	public HTMLParameterRadio(String parameterName, String parameterType, 

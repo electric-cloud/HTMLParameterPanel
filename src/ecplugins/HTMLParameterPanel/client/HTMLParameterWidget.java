@@ -1,24 +1,38 @@
 package ecplugins.HTMLParameterPanel.client;
 
-
 import com.electriccloud.commander.client.responses.CommanderError;
 import com.electriccloud.commander.client.responses.CommanderErrorHandler;
 import com.electriccloud.commander.gwt.client.Component;
 import com.google.gwt.user.client.ui.Widget;
- 
+
+/**
+ * Generic class to represent a parameter to display in a HTMLPanel
+ *  
+ *	@author lrochette
+ *
+ */
 public class HTMLParameterWidget implements CommanderErrorHandler
 {
-	protected Component 	m_component; 	//The plugin component requesting this  widget
+	protected Component 	m_component; 	// The plugin component requesting this  widget
 	protected String 		m_name;
 	protected String 		m_type;
 	protected String 		m_description;
 	protected String 		m_defaultValue;
 	protected Widget 		m_widget;
-	static    String 		s_projectName;
-	static    String 		s_procedureName;
 	protected Boolean       m_isRequired;
-	
+
     //~ Methods ----------------------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param parameterName				name of this parameter
+	 * @param parameterType				type of this parameter (entry, select, 
+	 * 									radio, credential, project, checkbox)
+	 * @param parameterDefaultValue		default value of this parameter
+	 * @param parameterDescription		the description of this parameter to 
+	 * 									display as a tooltip
+	 * @param isRequired				is this parameter required (non empty value)
+	 */
 	public HTMLParameterWidget(String parameterName, String parameterType, 
 			String parameterDefaultValue, String parameterDescription, Boolean isRequired) {
 		
@@ -27,15 +41,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 		m_defaultValue=parameterDefaultValue;
 		m_description=parameterDescription;
 		m_isRequired=isRequired;
-	}
-
-	public  HTMLParameterWidget(String parameterName, String parameterType, 
-			String parameterDefaultValue, String parameterDescription, Boolean isRequired,
-			String projName, String procName) {
-		
-		this(parameterName,parameterType,parameterDefaultValue,parameterDescription,isRequired);
-		s_projectName=projName;
-		s_procedureName=procName;
 	}
 
 	/*
@@ -65,15 +70,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	public String getDefaultValue() {
 		return this.m_defaultValue;
 	}
-
-	public void setProjectName(String projName) {
-		s_projectName = projName;
-	}
-
-	public void setProcedureName(String procName) {
-		s_projectName = procName;
-	}
-
 	
 	/*
 	 *  Create the GWT widget part of a parameter
