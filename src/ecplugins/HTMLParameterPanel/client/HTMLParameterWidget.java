@@ -4,7 +4,6 @@ package ecplugins.HTMLParameterPanel.client;
 import com.electriccloud.commander.client.responses.CommanderError;
 import com.electriccloud.commander.client.responses.CommanderErrorHandler;
 import com.electriccloud.commander.gwt.client.Component;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
  
 public class HTMLParameterWidget implements CommanderErrorHandler
@@ -80,8 +79,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	 *  Create the GWT widget part of a parameter
 	 */
 	public void createWidget(Component component)  {		
-		m_component=component;
-		// component.getLog().debug("Creating Widget for " + m_name + "\n");		
 	   alert("Parameters of type " + m_type + " are not yet supported.\n" + 
 	   		 "Please open an issue on GitHub to have this fixed.\n");
 	   m_widget=null;
@@ -100,9 +97,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 
 	
 	public String getValue() {
-		Widget widget=this.getWidget();		// Widget to read
-		 		   
-		alert("getValue: Unknown type for " + widget.toString() + ": " + m_type + "\n");
+		alert("getValue: We should not be here for " + m_name + ": " + m_type + "\n");
  	   	return null;
 	}
 
