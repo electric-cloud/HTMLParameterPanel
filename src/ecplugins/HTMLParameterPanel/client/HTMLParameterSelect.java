@@ -3,8 +3,6 @@
  */
 package ecplugins.HTMLParameterPanel.client;
 
-import java.util.Map;
-
 import com.electriccloud.commander.client.ChainedCallback;
 import com.electriccloud.commander.client.domain.Property;
 import com.electriccloud.commander.client.requests.GetPropertyRequest;
@@ -19,10 +17,7 @@ import com.google.gwt.user.client.ui.ListBox;
  * @author lrochette
  *
  */
-public class HTMLParameterSelect extends HTMLParameterWidget implements CommanderErrorHandler{
-	protected static String 		s_projectName;
-	protected static String 		s_procedureName;
-	// protected Map<String, String>   m_choiceList;	// list of text/value 
+public class HTMLParameterSelect extends HTMLParameterList implements CommanderErrorHandler{
 
     //~ Methods ----------------------------------------------------------------
 	public HTMLParameterSelect(String parameterName, String parameterType, 
@@ -31,9 +26,8 @@ public class HTMLParameterSelect extends HTMLParameterWidget implements Commande
 			String projName, String procName) {
 		
 		super(parameterName, parameterType, parameterDefaultValue, 
-				parameterDescription, isRequired);
-		s_projectName=projName;
-		s_procedureName=procName;	
+				parameterDescription, isRequired, 
+				projName, procName);	
 	}
 
 	public String getValue() {
