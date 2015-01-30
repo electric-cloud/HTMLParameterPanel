@@ -168,6 +168,8 @@ public class HTMLParameterPanel
         		paramWidget=new HTMLParameterCheckbox(pName, pValue, pDesc, pReq);
         	} else if (pType.equals("project")) {
         		paramWidget=new HTMLParameterProject(pName, pValue, pDesc, pReq);
+        	} else if  (pType.equals("radio")) {
+        		paramWidget=new HTMLParameterRadio(pName, pType, pValue, pDesc, pReq, projectName, procedureName);
         	} else {
         		paramWidget=new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
             		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName);
