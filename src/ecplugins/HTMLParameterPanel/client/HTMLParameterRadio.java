@@ -15,9 +15,6 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
 public class HTMLParameterRadio extends HTMLParameterWidget implements CommanderErrorHandler {
-	protected static String 		s_projectName;
-	protected static String 		s_procedureName;
-	// protected Map<String, String>   m_choiceList;	// list of text/value 
 
     //~ Methods ----------------------------------------------------------------
 	public HTMLParameterRadio(String parameterName, String parameterType, 
@@ -26,9 +23,8 @@ public class HTMLParameterRadio extends HTMLParameterWidget implements Commander
 			String projName, String procName) {
 		
 		super(parameterName, parameterType, parameterDefaultValue, 
-				parameterDescription, isRequired);
-		s_projectName=projName;
-		s_procedureName=procName;	
+				parameterDescription, isRequired,
+				projName, procName);	
 	}
 
 	public String getValue() {
