@@ -161,7 +161,7 @@ public class HTMLParameterPanel
         	Boolean pReq=formalParameter.isRequired();
         	HTMLParameterWidget paramWidget;
         	
-        	getLog().debug("Processing param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
+        	// getLog().debug("Processing param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
         	if (pType.equals("entry")) {
         		paramWidget=new HTMLParameterEntry(pName, pValue, pDesc, pReq);
         	} else if (pType.equals("checkbox")) {
