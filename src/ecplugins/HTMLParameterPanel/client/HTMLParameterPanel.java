@@ -166,7 +166,9 @@ public class HTMLParameterPanel
         		paramWidget=new HTMLParameterEntry(pName, pValue, pDesc, pReq);
         	} else if (pType.equals("checkbox")) {
         		paramWidget=new HTMLParameterCheckbox(pName, pValue, pDesc, pReq);
-        	}  else {
+        	} else if (pType.equals("project")) {
+        		paramWidget=new HTMLParameterProject(pName, pValue, pDesc, pReq);
+        	} else {
         		paramWidget=new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
             		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName);
         	}

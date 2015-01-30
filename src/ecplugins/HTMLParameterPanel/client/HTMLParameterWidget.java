@@ -10,7 +10,6 @@ import com.electriccloud.commander.client.CommanderRequestFactory;
 import com.electriccloud.commander.client.domain.BatchMode;
 import com.electriccloud.commander.client.domain.ObjectType;
 import com.electriccloud.commander.client.domain.Order;
-import com.electriccloud.commander.client.domain.Project;
 import com.electriccloud.commander.client.domain.Property;
 import com.electriccloud.commander.client.domain.TimeMode;
 import com.electriccloud.commander.client.CommanderRequestManager;
@@ -116,11 +115,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 			hPanel.setSpacing(10);
 			m_widget=hPanel.asWidget();
 			getRadioChoices(m_name, hPanel);
-		} else if (m_type.equals("project")) {
-     		ListBox LB=new ListBox();
-     		m_widget=LB.asWidget();
-     		getProjectChoices(m_name, LB);
-		} else {
+		}  else {
  		   alert("Parameters of type " + m_type + " are not yet supported.\n" + 
  		   		 "Please open an issue on GitHub to have this fixed.\n");
  		   m_widget=null;
@@ -131,60 +126,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	  $wnd.alert(msg);
 	}-*/;
 	
-    /**
-     * Function to get the choices of a project
-     */
-	private void getProjectChoices(final String paramName, final ListBox LB) {
-		// m_component.getLog().debug("Entering getProjectChoices\n");
-        FindObjectsResponseCallback projectRequestCallback = new FindObjectsResponseCallback() {
-            @Override public void handleError(CommanderError error) {
-                return; 	// There was an error, list will be empty
-            }
-            
-			@Override public void handleResponse(FindObjectsResponse response) {
-	        	List<Project> prjList=response.getProjects();
-	        	Integer index=0;
-	        	Integer match=-1;
-	        	//m_component.getLog().debug("Default Value " + m_defaultValue + "\n");
-	        	for (Project prj: prjList) {
-	        		String prjName=prj.getName();
-	        		if (m_defaultValue.equals(prjName)) {
-	        			match=index;
-	        			//m_component.getLog().debug("Default Selected " + index + "\n");
-	        		}
-	        		//m_component.getLog().debug("Adding menu choice " + prjName + "\n");
-	        		LB.addItem(prjName);
-	        		index ++;
-	        	}
-	        	if (match >=0) {
-	        		LB.setSelectedIndex(match);
-	        	}
-	        }
-		};
-	   	/**
-		 * Callback function to handle the property value
-		 */
-		FindObjectsRequest  findProjects = m_component.getRequestManager().getRequestFactory()
-                .createFindObjectsRequest(ObjectType.project);
-		// Set maximum number of results returned by the request
-        findProjects.setMaxIds(100);
-        // Filter results: no plugins
-        IsNullFilter filter=new IsNullFilter("pluginName");
-        findProjects.addFilter(filter);
-        findProjects.addSort("projectName", Order.ascending);
- 
-		// Set the callback
-        findProjects.setCallback(projectRequestCallback);
-		
-        m_component.getRequestManager().doRequest(new ChainedCallback() {
-			@Override public void onComplete() {
-	           	  	// All done!             
-			}
-	    }, findProjects);    
-
-	}
-
-	
+ 	
 	/**
      * Function to get the choices of a menu
      */
@@ -282,7 +224,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	public String getValue() {
 		Widget widget=this.getWidget();		// Widget to read
 		
-		if (m_type.equals("select") || m_type.equals("project")) {
+		if (m_type.equals("select")) {
      		ListBox LB=(ListBox) widget;
      		return LB.getValue(LB.getSelectedIndex());
      	}
