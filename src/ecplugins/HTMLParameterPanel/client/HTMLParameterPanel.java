@@ -9,7 +9,6 @@
 
 package ecplugins.HTMLParameterPanel.client;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -165,7 +164,9 @@ public class HTMLParameterPanel
         	getLog().debug("Processing param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
         	if (pType.equals("entry")) {
         		paramWidget=new HTMLParameterEntry(pName, pValue, pDesc, pReq);
-        	} else {
+        	} else if (pType.equals("checkbox")) {
+        		paramWidget=new HTMLParameterCheckbox(pName, pValue, pDesc, pReq);
+        	}  else {
         		paramWidget=new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
             		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName);
         	}

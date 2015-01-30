@@ -25,8 +25,6 @@ import com.electriccloud.commander.client.responses.FindObjectsResponse;
 import com.electriccloud.commander.client.responses.FindObjectsResponseCallback;
 import com.electriccloud.commander.client.responses.PropertyCallback;
 import com.electriccloud.commander.gwt.client.Component;
-import com.electriccloud.commander.gwt.client.ComponentBase;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -109,16 +107,7 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 		m_component=component;
 		// component.getLog().debug("Creating Widget for " + m_name + "\n");
 		
- 		// simple text entry
-		if (m_type.equals("checkbox")) {
-     		CheckBox CB=new CheckBox();
-     		if (m_defaultValue.equals("true")) {
-     			CB.setValue(true);
-     		} else {
-     			CB.setValue(false);
-     		}
-     		m_widget=CB.asWidget();
-		} else if (m_type.equals("select")) {
+		if (m_type.equals("select")) {
      		ListBox LB=new ListBox();
      		m_widget=LB.asWidget();
      		getMenuChoices(m_name, LB);
@@ -132,7 +121,8 @@ public class HTMLParameterWidget implements CommanderErrorHandler
      		m_widget=LB.asWidget();
      		getProjectChoices(m_name, LB);
 		} else {
- 		   alert("Type for " + m_name + ": " + m_type + "not yet supported\n");
+ 		   alert("Parameters of type " + m_type + " are not yet supported.\n" + 
+ 		   		 "Please open an issue on GitHub to have this fixed.\n");
  		   m_widget=null;
      	}
 	}
@@ -292,14 +282,6 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 	public String getValue() {
 		Widget widget=this.getWidget();		// Widget to read
 		
-		if (m_type.equals("checkbox")) {
-     		CheckBox CB=(CheckBox) widget;
-     		if (CB.getValue()) {
-     			return "true";
-     		} else {
-     			return "false";
-     		}
-		}
 		if (m_type.equals("select") || m_type.equals("project")) {
      		ListBox LB=(ListBox) widget;
      		return LB.getValue(LB.getSelectedIndex());
@@ -318,7 +300,5 @@ public class HTMLParameterWidget implements CommanderErrorHandler
 		// getLog().debug("Unknown type for " + pName + ": " + m_type + "\n");
  	   return null;
 	}
-
-
 
 }
