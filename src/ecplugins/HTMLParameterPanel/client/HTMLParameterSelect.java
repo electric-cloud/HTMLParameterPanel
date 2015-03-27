@@ -1,7 +1,6 @@
-/**
- * 
- */
 package ecplugins.HTMLParameterPanel.client;
+
+import java.util.Iterator;
 
 import com.electriccloud.commander.client.ChainedCallback;
 import com.electriccloud.commander.client.domain.Property;
@@ -32,7 +31,7 @@ public class HTMLParameterSelect extends HTMLParameterList implements CommanderE
 
 	public String getValue() {
 		ListBox LB=(ListBox) m_widget;
- 		return LB.getValue(LB.getSelectedIndex());
+ 		return getValue(LB.getValue(LB.getSelectedIndex()));
 	}
 	
 	public void createWidget(Component component)  {		
@@ -40,51 +39,29 @@ public class HTMLParameterSelect extends HTMLParameterList implements CommanderE
 
  		ListBox LB=new ListBox();
  		m_widget=LB.asWidget();
- 		getMenuChoices(m_name, LB);
+ 		getChoices();
 	}
 
-	/**
-     * Function to get the choices of a menu
-     */
-	private void getMenuChoices(final String paramName, final ListBox LB) {
-		/**
-		 * Callback function to handle the property value
-		 */
-        PropertyCallback propertyRequestCallback = new DefaultPropertyCallback(this) {
-			@Override public void handleResponse(Property property) {
-	        	String choiceList=property.getValue();
-	        	String[] choices = choiceList.split("\\|");
-	        	Integer index=0;
-	        	Integer match=-1;
-	        	
-	        	// getLog().debug("Default Value " + defaultValue + "\n");
-	        	for (String choice: choices) {
-	        		if (m_defaultValue.equals(choice)) {
-	        			match=index;
-	        			// getLog().debug("Default Selected " + index + "\n");
-	        		}
-	        		// getLog().debug("Adding menu choice " + choice + "\n");
-	        		LB.addItem(choice);
-	        		index ++;
-	        	}
-	        	if (match >=0) {
-	        		LB.setSelectedIndex(match);
-	        	}
-	        }
-		};
+	@Override public void fillWidgetList() {
+		m_component.getLog().debug("Entering fillWidget-Select for " + m_name + "\n");
+		Integer index=0;
+    	Integer match=-1;
+    	ListBox LB=(ListBox) m_widget;
+	   	Iterator<String> keySetIterator = m_choiceList.keySet().iterator();
+	    while(keySetIterator.hasNext()) {
+	    	String key = keySetIterator.next();
+    		if (m_defaultValue.equals(key)) {
+    			match=index;
+    			// getLog().debug("Default Selected " + index + "\n");
+    		}
+    		// getLog().debug("Adding menu choice " + choice + "\n");
+    		LB.addItem(key);
+    		index ++;
+    	}
+    	if (match >=0) {
+    		LB.setSelectedIndex(match);
+    	}
 
-		GetPropertyRequest getProperty = m_component.getRequestManager().getRequestFactory().createGetPropertyRequest();
-		getProperty.setCallback(propertyRequestCallback);
-		getProperty.setPropertyName("/projects/" + s_projectName +
-									"/procedures/" + s_procedureName +
-									"/ec_customEditorData/parameters/" + paramName +
-									"/options/list");
-
-		m_component.getRequestManager().doRequest(new ChainedCallback() {
-			@Override public void onComplete() {
-	           	  	// All done!             
-			}
-	    }, getProperty);    
 	}
 
 	@Override

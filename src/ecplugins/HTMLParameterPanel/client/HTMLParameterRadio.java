@@ -14,6 +14,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * @author lrochette
+ *
+ */
 public class HTMLParameterRadio extends HTMLParameterList implements CommanderErrorHandler {
 
     //~ Methods ----------------------------------------------------------------
@@ -46,51 +50,24 @@ public class HTMLParameterRadio extends HTMLParameterList implements CommanderEr
 		HorizontalPanel hPanel=new HorizontalPanel();
 		hPanel.setSpacing(10);
 		m_widget=hPanel.asWidget();
-		getRadioChoices(m_name, hPanel);
+		getChoices();
 	}
-	
-	/**
-     * Function to get the choices of a radio button
-     */
-	private void getRadioChoices(final String paramName, final HorizontalPanel HP) {
-		/**
-		 * Callback function to handle the property value
-		 */
-		PropertyCallback propertyRequestCallback = new DefaultPropertyCallback(this) {
-            @Override public void handleError(CommanderError error) {
-                return; 	// There was an error, list will be empty
-            }
 
-			@Override public void handleResponse(Property property) {
-	        	String choiceList=property.getValue();
-	        	String[] choices = choiceList.split("\\|");
-	        	// getLog().debug("Default Value " + m_defaultValue + "\n");
-	        	
-	        	for (String choice: choices) {
-	        		// getLog().debug("Adding menu choice " + choice + "\n");
-	        		// creating a radio button for each choice in the group
-	        		// named after the parameter
-	        		final RadioButton RB=new RadioButton(paramName, choice);
-	        		HP.add(RB);
-	        		if (m_defaultValue.equals(choice)) {
-	        			RB.setValue(true);
-	        		}
-	        	}
-	        }
-		};
-
-		GetPropertyRequest getProperty = m_component.getRequestManager().getRequestFactory().createGetPropertyRequest();
-		getProperty.setCallback(propertyRequestCallback);
-		getProperty.setPropertyName("/projects/" + s_projectName +
-									"/procedures/" + s_procedureName +
-									"/ec_customEditorData/parameters/" + paramName +
-									"/options/list");
-
-		m_component.getRequestManager().doRequest(new ChainedCallback() {
-			@Override public void onComplete() {
-	           	  	// All done!             
-			}
-	    }, getProperty);    
+	@Override public void fillWidgetList() {
+		m_component.getLog().debug("Entering fillWidget-Radio for " + m_name + "\n");
+		HorizontalPanel HP=(HorizontalPanel) m_widget;
+		
+	   	Iterator<String> keySetIterator = m_choiceList.keySet().iterator();
+	    while(keySetIterator.hasNext()) {
+	    	String key = keySetIterator.next();
+	    	m_component.getLog().debug("Adding radio choice " + key + "\n");
+    		final RadioButton RB=new RadioButton(m_name, key);
+    		HP.add(RB);
+       		if (m_defaultValue.equals(key)) {
+       			RB.setValue(true);
+    		}
+    	}
+ 
 	}
 
 	@Override

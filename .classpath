@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/opt/electriccloud/CommanderSDK5/lib/gwt-user.jar"/>
-	<classpathentry kind="lib" path="/opt/electriccloud/CommanderSDK5/lib/ec-gwt.jar"/>
-	<classpathentry kind="lib" path="/opt/electriccloud/electriccommander/utils/commander-client.jar"/>
+	<classpathentry kind="lib" path="${env.COMMANDER_SDK_LOC}/lib/gwt-user.jar"/>
+	<classpathentry kind="lib" path="${env.COMMANDER_SDK_LOC}/lib/ec-gwt.jar"/>
+	<classpathentry kind="lib" path="${env.COMMANDER_SDK_LOC}/lib/commander-client.jar"/>
 	<classpathentry kind="lib" path="lib/gwt-bootstrap-2.2.2.0-SNAPSHOT-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/gwt-bootstrap-2.2.2.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/gwt-bootstrap-javadoc.jar"/>

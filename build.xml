@@ -12,6 +12,6 @@
   </path>
 	
   <property name="gwt.path.extras" value="extras" />
-
-  <import file="/opt/electriccloud/CommanderSDK5/build/buildTargets.xml" />
+  <property environment="env" />
+  <import file="${env.COMMANDER_SDK_LOC}/build/buildTargets.xml" />
 </project>
