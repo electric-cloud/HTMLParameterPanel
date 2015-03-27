@@ -9,7 +9,6 @@
 
 package ecplugins.HTMLParameterPanel.client;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,6 @@ public class HTMLParameterPanel
     extends ComponentBase
     implements ParameterPanel, ParameterPanelProvider {
 
-	private Map<String, FormalParameter> m_formalParams; 	// Formal parameters
 	private Map <String, HTMLParameterWidget> m_widgets;	// parameter widget objects
 	private String projectName;
 	private String procedureName;
@@ -137,7 +135,7 @@ public class HTMLParameterPanel
      * @param  formalParameters  Formal parameters on the target object.
      */
     @Override public void setFormalParameters(Collection<FormalParameter> formalParameters) {
-        m_formalParams  = new HashMap<String, FormalParameter>();
+        // m_formalParams  = new HashMap<String, FormalParameter>();
         m_widgets		= new HashMap<String, HTMLParameterWidget>();
         /*
          * Extract project and procedure from the URL
@@ -156,9 +154,29 @@ public class HTMLParameterPanel
 
         for (FormalParameter formalParameter : formalParameters) {
         	String pName=formalParameter.getName();
-        	getLog().debug("Param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
-            m_widgets.put(pName, new HTMLParameterWidget(pName, formalParameter.getType(), formalParameter.getDefaultValue(),
-            		formalParameter.getDescription(), formalParameter.isRequired(), projectName, procedureName));
+           	String pType=formalParameter.getType();
+        	String pValue=formalParameter.getDefaultValue();
+        	String pDesc=formalParameter.getDescription();
+        	Boolean pReq=formalParameter.isRequired();
+        	HTMLParameterWidget paramWidget;
+        	
+        	// getLog().debug("Processing param: " + pName + ", Required: "+  formalParameter.isRequired() + "\n");
+        	if (pType.equals("entry")) {
+        		paramWidget=new HTMLParameterEntry(pName, pValue, pDesc, pReq);
+        	} else if (pType.equals("checkbox")) {
+        		paramWidget=new HTMLParameterCheckbox(pName, pValue, pDesc, pReq);
+        	} else if (pType.equals("project")) {
+        		paramWidget=new HTMLParameterProject(pName, pValue, pDesc, pReq);
+        	} else if  (pType.equals("radio")) {
+        		paramWidget=new HTMLParameterRadio(pName, pType, pValue, pDesc, pReq, projectName, procedureName);
+        	} else if  (pType.equals("select")) {
+        		paramWidget=new HTMLParameterSelect(pName, pType, pValue, pDesc, pReq, projectName, procedureName);
+        	} else {
+        		paramWidget=null;
+        		alert("Formal parameter of type " + pType + " is not yet supported!\n" +
+        			  "Open an issue on GitHub to have it fixed.\n");
+        	}
+        	m_widgets.put(pName, paramWidget);
         }
         
        	/*
@@ -213,8 +231,7 @@ public class HTMLParameterPanel
 			}
 	    }, getProperty);    
 	}
-
-	 	
+	
 	public static native void alert(String msg) /*-{
 	  $wnd.alert(msg);
 	}-*/;
